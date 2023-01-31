@@ -8,7 +8,7 @@ const AppError = require('./AppError');
 
 const Product = require('./models/product');
 
-mongoose.connect('mongodb://localhost:27017/farmStand2', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/pantryApp', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!")
     })
@@ -17,11 +17,11 @@ mongoose.connect('mongodb://localhost:27017/farmStand2', { useNewUrlParser: true
         console.log(err)
     })
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'))
+// app.use(methodOverride('_method'))
 
 const categories = ['fruit', 'vegetable', 'dairy'];
 
@@ -30,6 +30,10 @@ function wrapAsync(fn) {
         fn(req, res, next).catch(e => next(e))
     }
 }
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pantry-app/public', 'index.html'))
+})
 
 app.get('/products', wrapAsync(async (req, res, next) => {
     const { category } = req.query;
@@ -42,9 +46,9 @@ app.get('/products', wrapAsync(async (req, res, next) => {
     }
 }))
 
-app.get('/products/new', (req, res) => {
-    res.render('products/new', { categories })
-})
+// app.get('/products/new', (req, res) => {
+//     res.render('products/new', { categories })
+// })
 
 app.post('/products', wrapAsync(async (req, res, next) => {
     const newProduct = new Product(req.body);
@@ -102,7 +106,7 @@ app.use((err, req, res, next) => {
     res.status(status).send(message);
 })
 
-app.listen(3000, () => {
-    console.log("APP IS LISTENING ON PORT 3000!")
+app.listen(3005, () => {
+    console.log("APP IS LISTENING ON PORT 3005")
 })
 
