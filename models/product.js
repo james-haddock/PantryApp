@@ -1,19 +1,24 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-    name: {
+    product: {
         type: String,
         required: [true, 'name cannot be blank']
     },
-    price: {
+    quantity: {
         type: Number,
-        required: true,
-        min: 0
     },
     category: {
         type: String,
-        lowercase: true,
-        enum: ['fruit', 'vegetable', 'dairy']
+    },
+    bestBefore: {
+        type: String,
+    },
+    upc: {
+        type: String,
+    },
+    inStock: {
+        type: Boolean,
     }
 })
 

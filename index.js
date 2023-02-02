@@ -17,8 +17,8 @@ mongoose.connect('mongodb://localhost:27017/pantryApp', { useNewUrlParser: true,
         console.log(err)
     })
 
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 // app.use(methodOverride('_method'))
@@ -46,9 +46,9 @@ app.get('/products', wrapAsync(async (req, res, next) => {
     }
 }))
 
-// app.get('/products/new', (req, res) => {
-//     res.render('products/new', { categories })
-// })
+app.get('/products/new', (req, res) => {
+    res.render('products/new', { categories })
+})
 
 app.post('/products', wrapAsync(async (req, res, next) => {
     const newProduct = new Product(req.body);
