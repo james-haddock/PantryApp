@@ -8,7 +8,7 @@ const AppError = require('./AppError');
 
 const Product = require('./models/product');
 
-mongoose.connect('mongodb://localhost:27017/farmStand2', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/pantryApp', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!")
     })
@@ -17,25 +17,24 @@ mongoose.connect('mongodb://localhost:27017/farmStand2', { useNewUrlParser: true
         console.log(err)
     })
 
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'))
+// app.use(methodOverride('_method'))
 
 const categories = ['fruit', 'vegetable', 'dairy'];
 
-// the objective of this function is to check if the function passed through as an arguement
-// has any errors in it. If it doesnt it will be run, otherwise the .catch will execute and
-// the error information will be passed through to next().
 function wrapAsync(fn) {
     return function (req, res, next) {
         fn(req, res, next).catch(e => next(e))
     }
 }
 
-// wrapAsync passes through the function into the above function to check it for errors.
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pantry-app/public', 'index.html'))
+})
+
 app.get('/products', wrapAsync(async (req, res, next) => {
     const { category } = req.query;
     if (category) {
@@ -91,15 +90,13 @@ app.delete('/products/:id', wrapAsync(async (req, res) => {
 
 const handleValidationErr = err => {
     console.dir(err);
-    //In a real app, we would do a lot more here...
+
     return new AppError(`Validation Failed...${err.message}`, 400)
 }
 
 app.use((err, req, res, next) => {
     console.log(err.name);
-    //We can single out particular types of Mongoose Errors:
-    // *** if the ValidationError comes back in the error object, then 
-    // the handleValidationErr function will be run.
+
     if (err.name === 'ValidationError') err = handleValidationErr(err)
     next(err);
 })
@@ -109,10 +106,7 @@ app.use((err, req, res, next) => {
     res.status(status).send(message);
 })
 
-app.listen(3000, () => {
-    console.log("APP IS LISTENING ON PORT 3000!")
+app.listen(3005, () => {
+    console.log("APP IS LISTENING ON PORT 3005")
 })
 
-
-// async errors must be passed through in a next() function to the following error route handler
-// e.g. next(err)
