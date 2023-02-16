@@ -13,29 +13,29 @@ export default function RootLayout({ children }) {
       <body>
         <nav>
           <div className="container flex flex-wrap items-center justify-between mx-auto px-4 py-3">
-              <div className="text-indigo-600">
-                  <Link href="./lists" >
+              <div>
+                  <Link href="./lists" className="flex flex-col items-center">
                       <Image
-                          src="/icons/list-solid.svg"
+                          src="/icons/list-solid-indigo.svg"
                           alt="list"
                           height={30}
                           width={30}
                       />
-                      <p>Lists</p>
+                      <p className="text-indigo-600">Lists</p>
                   </Link>
               </div>
-              <button className="bg-indigo-600 text-amber-100 rounded-full px-5 py-1.5 text-center ">
+              <button className="bg-indigo-600 text-[#E1D7D1] rounded-full px-5 py-1.5 text-center ">
                   <Link href="./recipes">Recipes</Link>
               </button>
-              <div className="">
-                  <Link href="./profile">
+              <div >
+                  <Link href="./profile" className="flex flex-col items-center">
                       <Image
-                          src="/icons/user-solid.svg"
+                          src="/icons/user-solid-indigo.svg"
                           alt="user"
                           height={30}
                           width={30}
                       />
-                      <p  className="text-indigo-600 flex justify-center">Profile</p>
+                      <p  className="text-indigo-600">Profile</p>
                   </Link>
               </div>
           </div>

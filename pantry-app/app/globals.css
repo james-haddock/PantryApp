@@ -41,7 +41,7 @@ body {
 
 @layer base {
   body {
-    @apply bg-amber-100
+    @apply bg-[#E1D7D1]
   }
   h1 {
     @apply font-['QUEENS']
