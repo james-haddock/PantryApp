@@ -29,12 +29,25 @@ body {
   src: url("../public/fonts/CharlottenburgTrial-Compressed.ttf");
 }
 
+@font-face {
+  font-family: "QUEENS-SANS-EXTRA";
+  src: url("../public/fonts/QueensSansExtraTrial-ExtraLight.ttf");
+}
+
+@font-face {
+  font-family: "QUEENS-SANS";
+  src: url("../public/fonts/QueensSansTrial-Light.ttf");
+}
+
 @layer base {
   body {
     @apply bg-amber-100
   }
   h1 {
     @apply font-['QUEENS']
+  }
+  * {
+    @apply font-['QUEENS-SANS']
   }
 }
 
